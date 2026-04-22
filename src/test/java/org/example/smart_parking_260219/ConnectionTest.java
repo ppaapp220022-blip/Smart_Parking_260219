@@ -10,14 +10,27 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class ConnectionTest {
+    private static String envOrDefault(String key, String defaultValue) {
+        String value = System.getenv(key);
+        return (value == null || value.isBlank()) ? defaultValue : value;
+    }
+
+    private static String envRequired(String key) {
+        String value = System.getenv(key);
+        if (value == null || value.isBlank()) {
+            throw new IllegalStateException("Required environment variable is missing: " + key);
+        }
+        return value;
+    }
+
     @Test
     public void connectionTest() {
         try {
             Class.forName("org.mariadb.jdbc.Driver");
 
-            String url = "jdbc:mariadb://localhost:3306/smart_parking_team2";
-            String user = "admin";
-            String pass = "0219";
+            String url = envOrDefault("SMART_PARKING_DB_URL", "jdbc:mariadb://localhost:3306/smart_parking_team2");
+            String user = envRequired("SMART_PARKING_DB_USER");
+            String pass = envRequired("SMART_PARKING_DB_PASSWORD");
 
             Connection connection = DriverManager.getConnection(url, user, pass);
             // 변수가 null이 아닌지 확인 -> null이 아니면 객체를 참조
@@ -32,9 +45,9 @@ public class ConnectionTest {
     public void testHikariCP() {
         HikariConfig config = new HikariConfig();
         config.setDriverClassName("org.mariadb.jdbc.Driver");
-        config.setJdbcUrl("jdbc:mariadb://localhost:3306/mini_project");
-        config.setUsername("root");
-        config.setPassword("7070");
+        config.setJdbcUrl(envOrDefault("SMART_PARKING_DB_URL", "jdbc:mariadb://localhost:3306/smart_parking_team2"));
+        config.setUsername(envRequired("SMART_PARKING_DB_USER"));
+        config.setPassword(envRequired("SMART_PARKING_DB_PASSWORD"));
 
         config.addDataSourceProperty("cachePrepStmts", "true");
         config.addDataSourceProperty("prepStmtCacheSize", "250");

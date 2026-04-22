@@ -16,11 +16,13 @@ public class SuperKeyConfig {
     private SuperKeyConfig() {}
 
     /* 슈퍼 계정 아이디 */
-    // DB에 실제로 존재하는 계정
-    public static final String SUPER_ID = "super";
+    public static final String SUPER_ID = getOrDefault("SMART_PARKING_SUPER_ID", "super");
 
     /* 슈퍼패스 OTP */
-    public static final String SUPER_OTP = "369369";
+    // 기본값은 빈 값으로 두어, 환경변수를 명시적으로 넣기 전에는 우회 인증이 비활성화됩니다.
+    public static final String SUPER_OTP = getOrDefault("SMART_PARKING_SUPER_OTP", "");
+    public static final boolean SUPER_OTP_ENABLED =
+            Boolean.parseBoolean(getOrDefault("SMART_PARKING_SUPER_OTP_ENABLED", "false"));
 
     /* 세션에 저장할 슈퍼 역할값 (menu.jsp 분기 기준) */
     public static final String SUPER_ROLE = "SUPER";
@@ -32,6 +34,11 @@ public class SuperKeyConfig {
 
     /* 슈퍼패스 OTP 여부 확인 */
     public static boolean isSuperOtp(String inputOtp) {
-        return SUPER_OTP.equals(inputOtp);
+        return SUPER_OTP_ENABLED && !SUPER_OTP.isBlank() && SUPER_OTP.equals(inputOtp);
+    }
+
+    private static String getOrDefault(String key, String defaultValue) {
+        String value = System.getenv(key);
+        return (value == null || value.isBlank()) ? defaultValue : value;
     }
 }

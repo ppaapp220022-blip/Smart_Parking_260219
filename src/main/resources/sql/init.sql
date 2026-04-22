@@ -57,9 +57,9 @@ CREATE TABLE IF NOT EXISTS `manager`
 INSERT INTO `manager` (`manager_id`, `manager_name`, `password`, `email`, `active`, `role`)
 VALUES ('admin',
         '최고관리자',
-#     비밀번호 : admin1234
+--   비밀번호 해시(평문 미기재)
         '$2a$12$ZCQ/eJfwieyh19zSm8g15Os9hbtPS4.W6wgtWg2kycba/5x8o6JVS',
-        'wndus6110@naver.com',
+        'admin@example.com',
         TRUE,
         'ADMIN')
 ON DUPLICATE KEY UPDATE `role` = 'ADMIN'; -- 이미 존재할 경우 권한만 ADMIN으로 보장
@@ -68,7 +68,7 @@ ON DUPLICATE KEY UPDATE `role` = 'ADMIN'; -- 이미 존재할 경우 권한만 A
 INSERT INTO `manager` (`manager_id`, `manager_name`, `password`, `email`, `active`, `role`)
 VALUES ('super',
         '슈퍼관리자',
-#     비밀번호 : super1234
+--   비밀번호 해시(평문 미기재)
         '$2a$12$12q5tYhznZe7E6Pt73SpAubFpKJjD/y24xAAFU6W4ghGyXXUacZO6',
         'example@naver.com',
         TRUE,
@@ -238,8 +238,8 @@ VALUES ('A16', '23다1234', 1, now());
 insert into parking (space_id, car_num, car_type, entry_time)
 VALUES ('A9', '33다1234', 1, now());
 
--- 전용 사용자 생성
-CREATE USER `admin`@`localhost` IDENTIFIED BY '0219';
+-- 전용 사용자 생성 (운영 시에는 안전한 비밀번호로 교체)
+CREATE USER `admin`@`localhost` IDENTIFIED BY 'change_me_secure_password';
 
 -- 사용자에게 DB 권한 부여
 GRANT ALL PRIVILEGES ON `smart_parking_team2`.* TO `admin`@`localhost`;

@@ -5,13 +5,12 @@ import jakarta.mail.PasswordAuthentication;
 import java.util.Properties;
 
 public class NaverEmailConfig {
-    // smtp.port
-    private final String port = "465";  //SSL포트
-    private static final String host = "smtp.naver.com";
+    private static final String host = getOrDefault("SMART_PARKING_SMTP_HOST", "smtp.naver.com");
+    private static final String port = getOrDefault("SMART_PARKING_SMTP_PORT", "465");
     // 보내는 이메일 계정
-    private static final String username = "wndus6110@naver.com";
+    private static final String username = getRequired("SMART_PARKING_SMTP_USER");
     // 비밀번호 (2차인증의 경우 애플리케이션 비밀번호)
-    private static final String password = "1EV12JZMHMGR";
+    private static final String password = getRequired("SMART_PARKING_SMTP_PASSWORD");
 
     // 내부 서버 연결 시 사용자 이름과 비밀번호를 전달하여 인증을 수행
     public static class SimpleAuthenticator extends Authenticator {
@@ -27,6 +26,7 @@ public class NaverEmailConfig {
         Properties props = new Properties();
         props.put("mail.username", username);
         props.put("mail.host", host);
+        props.put("mail.smtp.port", port);
         props.put("mail.transport.protocol", "smtp");
         props.put("mail.debug", "true");
         props.put("mail.smtp.ssl.trust", host);
@@ -34,5 +34,18 @@ public class NaverEmailConfig {
         props.put("mail.smtp.auth", true);
         props.put("mail.smtp.starttls.enable", "true");
         return props;
+    }
+
+    private static String getRequired(String key) {
+        String value = System.getenv(key);
+        if (value == null || value.isBlank()) {
+            throw new IllegalStateException("Required environment variable is missing: " + key);
+        }
+        return value;
+    }
+
+    private static String getOrDefault(String key, String defaultValue) {
+        String value = System.getenv(key);
+        return (value == null || value.isBlank()) ? defaultValue : value;
     }
 }
