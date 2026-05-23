@@ -172,6 +172,33 @@
             font-weight: bold;
             margin-top: 5px;
         }
+        .demo-email {
+            background: #eef4ff;
+            color: #31456a;
+            padding: 12px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            border: 1px solid #cddcff;
+            font-size: 14px;
+        }
+        .demo-email code {
+            background: #fff;
+            border: 1px solid #dbe6ff;
+            border-radius: 4px;
+            padding: 2px 6px;
+            font-family: Consolas, monospace;
+        }
+        .demo-btn {
+            margin-top: 10px;
+            width: 100%;
+            padding: 10px;
+            background: #edf2ff;
+            color: #4a5fc1;
+            border: 1px solid #c8d4ff;
+            border-radius: 5px;
+            font-size: 13px;
+            cursor: pointer;
+        }
     </style>
 </head>
 <body>
@@ -181,6 +208,11 @@
 
     <div class="info-box">
         🔒 보안을 위해 이메일 인증과 OTP 확인이 필요합니다.
+    </div>
+
+    <div class="demo-email">
+        데모 계정 이메일: <code>example@naver.com</code>
+        <button type="button" class="demo-btn" id="fillDemoEmailBtn">데모 이메일 입력</button>
     </div>
 
     <%-- 에러 메시지 표시 --%>
@@ -230,6 +262,7 @@
     const otpForm = document.getElementById('otpForm');
     const timerDiv = document.getElementById('timer');
     const timeLeftSpan = document.getElementById('timeLeft');
+    const fillDemoEmailBtn = document.getElementById('fillDemoEmailBtn');
 
     let isEmailVerified = false;
     let timerInterval = null;
@@ -406,6 +439,11 @@
             clearInterval(timerInterval);
             window.location.href = '${pageContext.request.contextPath}/login';
         }
+    });
+
+    fillDemoEmailBtn.addEventListener('click', function() {
+        emailInput.value = 'example@naver.com';
+        emailInput.focus();
     });
 </script>
 </body>

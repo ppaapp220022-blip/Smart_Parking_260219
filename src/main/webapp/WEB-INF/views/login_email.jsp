@@ -124,6 +124,33 @@
             border: 1px solid #bee5eb;
             font-size: 14px;
         }
+        .demo-email {
+            background: #eef4ff;
+            color: #31456a;
+            padding: 12px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            border: 1px solid #cddcff;
+            font-size: 14px;
+        }
+        .demo-email code {
+            background: #fff;
+            border: 1px solid #dbe6ff;
+            border-radius: 4px;
+            padding: 2px 6px;
+            font-family: Consolas, monospace;
+        }
+        .demo-btn {
+            margin-top: 10px;
+            width: 100%;
+            padding: 10px;
+            background: #edf2ff;
+            color: #4a5fc1;
+            border: 1px solid #c8d4ff;
+            border-radius: 5px;
+            font-size: 13px;
+            cursor: pointer;
+        }
     </style>
 </head>
 <body>
@@ -133,6 +160,11 @@
 
     <div class="info-box">
         📧 회원가입 시 등록한 이메일 주소를 정확히 입력해주세요.
+    </div>
+
+    <div class="demo-email">
+        데모 계정 이메일: <code>example@naver.com</code>
+        <button type="button" class="demo-btn" id="fillDemoEmailBtn">데모 이메일 입력</button>
     </div>
 
     <%-- 에러 메시지 표시 --%>
@@ -160,6 +192,7 @@
     const submitBtn = document.getElementById('submitBtn');
     const cancelBtn = document.getElementById('cancelBtn');
     const emailForm = document.getElementById('emailForm');
+    const fillDemoEmailBtn = document.getElementById('fillDemoEmailBtn');
 
     // 페이지 로드 시 디버깅 정보
     window.addEventListener('load', function() {
@@ -222,6 +255,11 @@
         if (confirm('로그인을 취소하시겠습니까?')) {
             window.location.href = '${pageContext.request.contextPath}/login';
         }
+    });
+
+    fillDemoEmailBtn.addEventListener('click', function() {
+        emailInput.value = 'example@naver.com';
+        emailInput.focus();
     });
 </script>
 </body>

@@ -120,11 +120,55 @@
             text-align: center;
             font-size: 14px;
         }
+        .demo-account {
+            background: #eef4ff;
+            border: 1px solid #cddcff;
+            border-radius: 8px;
+            padding: 14px;
+            margin-bottom: 20px;
+            font-size: 14px;
+            color: #31456a;
+        }
+        .demo-account strong {
+            display: block;
+            margin-bottom: 8px;
+            color: #22365b;
+        }
+        .demo-account code {
+            display: inline-block;
+            background: #fff;
+            border: 1px solid #dbe6ff;
+            border-radius: 4px;
+            padding: 2px 6px;
+            margin-left: 4px;
+            font-family: Consolas, monospace;
+        }
+        .demo-fill {
+            width: 100%;
+            padding: 10px;
+            background: #edf2ff;
+            color: #4a5fc1;
+            border: 1px solid #c8d4ff;
+            border-radius: 5px;
+            font-size: 13px;
+            cursor: pointer;
+            margin-bottom: 16px;
+        }
+        .demo-fill:hover {
+            background: #dfe8ff;
+        }
     </style>
 </head>
 <body>
 <div class="login-container">
     <h2>관리자 로그인</h2>
+
+    <div class="demo-account">
+        <strong>데모 계정</strong>
+        아이디<code>test01</code><br>
+        비밀번호<code>1111</code><br>
+        이메일<code>example@naver.com</code>
+    </div>
 
     <%-- 로그아웃/재로그인 안내 메시지 --%>
     <% String logoutMessage = (String) session.getAttribute("logoutMessage");
@@ -144,6 +188,7 @@
     <% } %>
 
     <form action="${pageContext.request.contextPath}/login" method="post">
+        <button type="button" class="demo-fill" id="fillDemoBtn">데모 계정 자동 입력</button>
         <div class="form-group">
             <label for="id">아이디</label>
             <input type="text" id="id" name="id" required autofocus>
@@ -168,5 +213,16 @@
         🔑 비밀번호 찾기
     </button>
 </div>
+<script>
+    const fillDemoBtn = document.getElementById('fillDemoBtn');
+    const idInput = document.getElementById('id');
+    const pwInput = document.getElementById('pw');
+
+    fillDemoBtn.addEventListener('click', function() {
+        idInput.value = 'test01';
+        pwInput.value = '1111';
+        idInput.focus();
+    });
+</script>
 </body>
 </html>
