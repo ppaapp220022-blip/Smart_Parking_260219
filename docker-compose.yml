@@ -29,3 +29,7 @@ services:
       SMART_PARKING_DB_URL: jdbc:mariadb://mariadb:3306/smart_parking_team2
       SMART_PARKING_DB_USER: admin
       SMART_PARKING_DB_PASSWORD: 1234
+      SMART_PARKING_SMTP_HOST: smtp.naver.com
+      SMART_PARKING_SMTP_PORT: 465
+      SMART_PARKING_SMTP_USER: your_naver_email_id
+      SMART_PARKING_SMTP_PASSWORD: your_naver_app_password
