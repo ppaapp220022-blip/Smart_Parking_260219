@@ -238,8 +238,11 @@ VALUES ('A16', '23다1234', 1, now());
 insert into parking (space_id, car_num, car_type, entry_time)
 VALUES ('A9', '33다1234', 1, now());
 
--- 전용 사용자 생성 (운영 시에는 안전한 비밀번호로 교체)
-CREATE USER `admin`@`localhost` IDENTIFIED BY 'change_me_secure_password';
+# -- 전용 사용자 생성 (운영 시에는 안전한 비밀번호로 교체)
+# CREATE USER `admin`@`localhost` IDENTIFIED BY '1234';
+
+DROP USER IF EXISTS `admin`@`localhost`;
+CREATE USER `admin`@`localhost` IDENTIFIED BY '1234';
 
 -- 사용자에게 DB 권한 부여
 GRANT ALL PRIVILEGES ON `smart_parking_team2`.* TO `admin`@`localhost`;
