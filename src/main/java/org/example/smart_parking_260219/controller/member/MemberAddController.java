@@ -42,7 +42,7 @@ public class MemberAddController extends HttpServlet {
             try {
                 MemberDTO member = memberService.getOneMember(carNum.trim());
                 if (member == null) {
-                    resp.sendRedirect("/member/member_add");
+                    resp.sendRedirect(req.getContextPath() + "/member/member_add");
                     return;
                 }
                 LocalDate today = LocalDate.now();
@@ -58,7 +58,7 @@ public class MemberAddController extends HttpServlet {
                 req.getRequestDispatcher("/WEB-INF/member/member_add.jsp").forward(req, resp);
             } catch (Exception e) {
                 log.error("member_add renew GET 오류", e);
-                resp.sendRedirect("/member/member_list?error=fail");
+                resp.sendRedirect(req.getContextPath() + "/member/member_list?error=fail");
             }
             return;
         }
@@ -135,7 +135,7 @@ public class MemberAddController extends HttpServlet {
 
                 out.println("<script>");
                 out.println("alert('월정액 회원 등록이 완료되었습니다.');");
-                out.println("location.href='/member/member_list';");
+                out.println("location.href='" + req.getContextPath() + "/member/member_list';");
                 out.println("</script>");
 
             } else if ("renew".equals(action)) {
@@ -144,11 +144,11 @@ public class MemberAddController extends HttpServlet {
 
                 out.println("<script>");
                 out.println("alert('월정액 1개월 갱신이 완료되었습니다.');");
-                out.println("location.href='/member/member_list';");
+                out.println("location.href='" + req.getContextPath() + "/member/member_list';");
                 out.println("</script>");
 
             } else {
-                resp.sendRedirect("/member/member_list");
+                resp.sendRedirect(req.getContextPath() + "/member/member_list");
             }
 
         } catch (Exception e) {

@@ -5,6 +5,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <%
+    String ctx = request.getContextPath();
     // 구독중인 회원과 만료 회원 가져오기
     MemberService memberService = MemberService.INSTANCE;
     List<MemberDTO> allMembers = memberService.getAllMember();
@@ -46,8 +47,8 @@
 <html>
 <head>
     <title>월정액 회원 목록</title>
-    <link rel="stylesheet" href="../CSS/style.css">
-    <link rel="stylesheet" href="../CSS/member/list.css">
+    <link rel="stylesheet" href="<%= ctx %>/CSS/style.css">
+    <link rel="stylesheet" href="<%= ctx %>/CSS/member/list.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 </head>
@@ -91,7 +92,7 @@
 
         <div class="d-flex justify-content-between align-items-center">
             <h2 class="mb-0">월정액 회원 목록</h2>
-            <a href="/member/member_add" class="btn btn-primary">회원 등록</a>
+            <a href="<%= ctx %>/member/member_add" class="btn btn-primary">회원 등록</a>
         </div>
         <hr class="mt-2 mb-2">
         <div class="text-right mb-3">
@@ -134,7 +135,7 @@
                     boolean isExpired = !m.isSubscribed();
             %>
             <tr class="<%= isExpired ? "table-secondary" : "" %>" style="cursor: pointer;"
-                onclick="location.href='/member/member_detail?carNum=<%= m.getCarNum() %>&page=<%= currentPage %>'">
+                onclick="location.href='<%= ctx %>/member/member_detail?carNum=<%= m.getCarNum() %>&page=<%= currentPage %>'">
                 <td><%= displayNo-- %></td>
                 <td><%= m.getCarNum() %></td>
                 <td><%= m.CarTypeText() %></td>
@@ -152,7 +153,7 @@
                 <!-- 갱신 버튼: tr 클릭과 분리 -->
                 <td onclick="event.stopPropagation()" style="text-align:center; vertical-align:middle;">
                     <% if (isExpired) { %>
-                    <form action="/member/member_list" method="post"
+                    <form action="<%= ctx %>/member/member_list" method="post"
                           style="display:inline; margin:0;">
                         <input type="hidden" name="action" value="renew">
                         <input type="hidden" name="carNum" value="<%= m.getCarNum() %>">
@@ -193,7 +194,7 @@
 
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-<script src="../JS/menu.js"></script>
-<script src="../JS/function.js"></script>
+<script src="<%= ctx %>/JS/menu.js"></script>
+<script src="<%= ctx %>/JS/function.js"></script>
 </body>
 </html>

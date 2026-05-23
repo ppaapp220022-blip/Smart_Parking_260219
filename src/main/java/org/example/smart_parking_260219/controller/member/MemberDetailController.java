@@ -29,13 +29,13 @@ public class MemberDetailController extends HttpServlet {
             // 파라미터 검증
             if (carNum == null || carNum.trim().isEmpty()) {
                 log.error("차량번호 파라미터 누락");
-                resp.sendRedirect("/member/member_search.jsp?error=missing");
+                resp.sendRedirect(req.getContextPath() + "/member/member_search?error=missing");
                 return;
             }
             MemberDTO member = memberService.getOneMember(carNum.trim());
 
             if (member == null) {
-                resp.sendRedirect("/member/member_list?error=notFound");
+                resp.sendRedirect(req.getContextPath() + "/member/member_list?error=notFound");
                 return;
             }
 
@@ -59,7 +59,7 @@ public class MemberDetailController extends HttpServlet {
             log.error("회원 조회 오류: {}", e.getMessage(), e);
             String msg = java.net.URLEncoder.encode(
                     e.getClass().getSimpleName() + ": " + e.getMessage(), "UTF-8");
-            resp.sendRedirect("/member/member_list?error=fail&debug=" + msg);
+            resp.sendRedirect(req.getContextPath() + "/member/member_list?error=fail&debug=" + msg);
         }
     }
 }

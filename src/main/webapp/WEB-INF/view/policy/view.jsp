@@ -1,6 +1,7 @@
 <%@ page import="org.example.smart_parking_260219.dto.FeePolicyDTO" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%
+    String ctx = request.getContextPath();
     FeePolicyDTO policy = (FeePolicyDTO) request.getAttribute("policy");
     String pageNum = request.getParameter("pageNum");
     String items = (request.getParameter("items") != null) ? request.getParameter("items") : "";
@@ -13,7 +14,7 @@
     <title>요금 정책 상세 조회</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-    <link rel="stylesheet" href="../CSS/style.css">
+    <link rel="stylesheet" href="<%= ctx %>/CSS/style.css">
     <style>
         .main-content {
             display: flex;

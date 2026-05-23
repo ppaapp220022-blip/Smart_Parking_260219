@@ -2,11 +2,12 @@
 <%@ page import="org.example.smart_parking_260219.dto.MemberDTO" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%
+  String ctx = request.getContextPath();
   List<MemberDTO> matchedMembers = (List<MemberDTO>) request.getAttribute("matchedMembers");
   String searchCarNum = (String) request.getAttribute("searchCarNum");
 
   if (matchedMembers == null || matchedMembers.isEmpty()) {
-    response.sendRedirect("/member/member_search");
+    response.sendRedirect(ctx + "/member/member_search");
     return;
   }
 %>
@@ -14,7 +15,7 @@
 <%-- 회원 조회시 차량번호 뒷 4자리 동일시 선택 화면--%>
 <head>
   <title>회원 선택</title>
-  <link rel="stylesheet" href="../CSS/style.css">
+  <link rel="stylesheet" href="<%= ctx %>/CSS/style.css">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
 </head>
 <body>
@@ -29,7 +30,7 @@
 
     <div class="list-group">
       <% for (MemberDTO m : matchedMembers) { %>
-      <a href="/member/member_detail?carNum=<%= m.getCarNum() %>"
+      <a href="<%= ctx %>/member/member_detail?carNum=<%= m.getCarNum() %>"
          class="list-group-item list-group-item-action">
         <div class="d-flex justify-content-between align-items-center">
           <div>
@@ -50,13 +51,13 @@
     </div>
 
     <div class="mt-3">
-      <a href="/member/member_search" class="btn btn-secondary btn-block">다시 검색</a>
+      <a href="<%= ctx %>/member/member_search" class="btn btn-secondary btn-block">다시 검색</a>
     </div>
   </div>
 </div>
 
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-<script src="../JS/menu.js"></script>
+<script src="<%= ctx %>/JS/menu.js"></script>
 </body>
 </html>

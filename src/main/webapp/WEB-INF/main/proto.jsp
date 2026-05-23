@@ -1,8 +1,9 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<% String ctx = request.getContextPath(); %>
 <html>
 <head>
     <title>Title</title>
-    <link rel="stylesheet" href="../CSS/style.css">
+    <link rel="stylesheet" href="<%= ctx %>/CSS/style.css">
 </head>
 <body>
 <!-- Navigation -->
@@ -17,7 +18,7 @@
     </div>
   </div>
 </div>
-    <script src="../JS/menu.js"></script>
-    <script src="../JS/function.js"></script>
+    <script src="<%= ctx %>/JS/menu.js"></script>
+    <script src="<%= ctx %>/JS/function.js"></script>
 </body>
 </html>

@@ -1,19 +1,20 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page import="org.example.smart_parking_260219.dto.MemberDTO" %>
 <%
+  String ctx = request.getContextPath();
   MemberDTO member = (MemberDTO) request.getAttribute("member");
   if (member == null) {
-    response.sendRedirect("/member/member_list");
+    response.sendRedirect(ctx + "/member/member_list");
     return;
   }
   String listPage = (String) request.getAttribute("page");
   if (listPage == null || listPage.isEmpty()) listPage = "1";
-  String listUrl = "/member/member_list?page=" + listPage;
+  String listUrl = ctx + "/member/member_list?page=" + listPage;
 %>
 <html>
 <head>
   <title>회원 상세</title>
-  <link rel="stylesheet" href="../CSS/style.css">
+  <link rel="stylesheet" href="<%= ctx %>/CSS/style.css">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
 </head>
 <body>
@@ -109,7 +110,7 @@
 
     <!-- 버튼 -->
     <div class="d-flex mt-3">
-      <a href="/member/member_modify?carNum=<%= member.getCarNum() %>&page=<%= listPage %>"
+      <a href="<%= ctx %>/member/member_modify?carNum=<%= member.getCarNum() %>&page=<%= listPage %>"
          class="btn btn-warning flex-fill mr-2 text-white">수정</a>
       <a href="<%= listUrl %>"
          class="btn btn-secondary flex-fill mr-2">목록</a>
@@ -141,7 +142,7 @@
 
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-<script src="../JS/menu.js"></script>
-<script src="../JS/member/detail.js"></script>
+<script src="<%= ctx %>/JS/menu.js"></script>
+<script src="<%= ctx %>/JS/member/detail.js"></script>
 </body>
 </html>

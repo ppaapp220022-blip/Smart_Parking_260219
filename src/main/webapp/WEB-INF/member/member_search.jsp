@@ -1,5 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%
+  String ctx = request.getContextPath();
   String error        = request.getParameter("error");
   String searchCarNum = (String) request.getAttribute("searchCarNum");
   if (searchCarNum == null) searchCarNum = "";
@@ -7,7 +8,7 @@
 <html>
 <head>
   <title>회원 검색</title>
-  <link rel="stylesheet" href="../CSS/style.css">
+  <link rel="stylesheet" href="<%= ctx %>/CSS/style.css">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
 </head>
 <body>
@@ -29,7 +30,7 @@
         차량번호 뒤 4자리 검색
       </div>
       <div class="card-body">
-        <form action="/member/member_search" method="get"
+        <form action="<%= ctx %>/member/member_search" method="get"
               onsubmit="return validateSearch()">
           <div class="form-group">
             <label>차량번호 뒤 4자리 <span class="text-danger">*</span></label>
@@ -40,7 +41,7 @@
           </div>
           <div class="d-flex">
             <button type="submit" class="btn btn-primary flex-fill mr-2">검색</button>
-            <a href="/member/member_list" class="btn btn-secondary flex-fill">목록</a>
+            <a href="<%= ctx %>/member/member_list" class="btn btn-secondary flex-fill">목록</a>
           </div>
         </form>
       </div>
@@ -50,7 +51,7 @@
 
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-<script src="../JS/menu.js"></script>
-<script src="../JS/member/search.js"></script>
+<script src="<%= ctx %>/JS/menu.js"></script>
+<script src="<%= ctx %>/JS/member/search.js"></script>
 </body>
 </html>

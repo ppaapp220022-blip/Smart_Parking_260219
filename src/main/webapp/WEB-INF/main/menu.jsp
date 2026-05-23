@@ -98,7 +98,6 @@
 
     function confirmLogout() {
         if (confirm("로그아웃을 하시겠습니까?")) {  // confirm()은 확인을 누르면 true, 취소를 누르면 false를 반환
-            ${pageContext.request.contextPath}  // '확인' 클릭 시: true가 반환되어 href 주소(/logout)로 이동
             return true;
         } else {
             // '취소' 클릭 시 아무런 동작도 하지 않고 현재 페이지에 머묾

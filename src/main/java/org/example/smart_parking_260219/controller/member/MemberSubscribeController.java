@@ -39,7 +39,7 @@ public class MemberSubscribeController extends HttpServlet {
             if (member == null) {
                 // 차량번호 없음 → 회원등록 페이지로 이동
                 log.info("차량번호 없음 → 회원등록: {}", carNum);
-                resp.sendRedirect("/member/member_add?carNum=" + carNum + "&newMember=true");
+                resp.sendRedirect(req.getContextPath() + "/member/member_add?carNum=" + carNum + "&newMember=true");
                 return;
             }
 
@@ -50,7 +50,7 @@ public class MemberSubscribeController extends HttpServlet {
 
         } catch (Exception e) {
             log.error("월정액 조회 오류", e);
-            resp.sendRedirect("/member/member_list?error=fail");
+            resp.sendRedirect(req.getContextPath() + "/member/member_list?error=fail");
         }
     }
 
@@ -65,11 +65,11 @@ public class MemberSubscribeController extends HttpServlet {
             // 1개월 갱신: endDate 다음날부터 시작
             memberService.renewSubscription(carNum);
             log.info("월정액 등록 완료: {}", carNum);
-            resp.sendRedirect("/member/member_detail?carNum=" + carNum + "&success=subscribe");
+            resp.sendRedirect(req.getContextPath() + "/member/member_detail?carNum=" + carNum + "&success=subscribe");
 
         } catch (Exception e) {
             log.error("월정액 등록 오류", e);
-            resp.sendRedirect("/member/member_subscribe?carNum=" + carNum + "&error=fail");
+            resp.sendRedirect(req.getContextPath() + "/member/member_subscribe?carNum=" + carNum + "&error=fail");
         }
     }
 }

@@ -25,3 +25,7 @@ services:
     depends_on:
       - mariadb
     restart: always
+    environment:
+      SMART_PARKING_DB_URL: jdbc:mariadb://mariadb:3306/smart_parking_team2
+      SMART_PARKING_DB_USER: admin
+      SMART_PARKING_DB_PASSWORD: 1234

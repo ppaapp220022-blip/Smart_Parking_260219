@@ -2,18 +2,19 @@
 <%@ page import="org.example.smart_parking_260219.dto.MemberDTO" %>
 <%@ page import="java.time.LocalDate" %>
 <%
+    String ctx = request.getContextPath();
     MemberDTO member = (MemberDTO) request.getAttribute("member");
     LocalDate newStart = (LocalDate) request.getAttribute("newStart");
     LocalDate newEnd = (LocalDate) request.getAttribute("newEnd");
 
     if (member == null) {
-        response.sendRedirect("/member/member_list");
+        response.sendRedirect(ctx + "/member/member_list");
         return;
     }
     String modifyError = request.getParameter("error");
     String listPage = (String) request.getAttribute("page");
     if (listPage == null || listPage.isEmpty()) listPage = "1";
-    String listUrl = "/member/member_list?page=" + listPage;
+    String listUrl = ctx + "/member/member_list?page=" + listPage;
 
     // JSP 스크립틀릿에서 미리 계산 (value 속성 내 따옴표 충돌 방지)
     String startDateVal = (member.getStartDate() != null) ? member.getStartDate().toString() : "";
@@ -27,7 +28,7 @@
 <html>
 <head>
     <title>회원 수정</title>
-    <link rel="stylesheet" href="../CSS/style.css">
+    <link rel="stylesheet" href="<%= ctx %>/CSS/style.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
 </head>
 <body>
@@ -41,7 +42,7 @@
         <% } %>
 
         <!-- 회원 정보 수정 폼 -->
-        <form action="/member/member_modify" method="post" onsubmit="return validateForm()">
+        <form action="<%= ctx %>/member/member_modify" method="post" onsubmit="return validateForm()">
             <input type="hidden" name="action"    value="modify">
             <input type="hidden" name="memberId"  value="<%= member.getMemberId() %>">
             <input type="hidden" name="carNum"    value="<%= member.getCarNum() %>">
@@ -130,7 +131,7 @@
                 </div>
 
                 <!-- 1개월 갱신 폼 -->
-                <form action="/member/member_modify" method="post">
+                <form action="<%= ctx %>/member/member_modify" method="post">
                     <input type="hidden" name="action" value="renew">
                     <input type="hidden" name="carNum" value="<%= member.getCarNum() %>">
                     <input type="hidden" name="page"   value="<%= listPage %>">
@@ -147,7 +148,7 @@
 
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-<script src="../JS/menu.js"></script>
-<script src="../JS/member/modify.js"></script>
+<script src="<%= ctx %>/JS/menu.js"></script>
+<script src="<%= ctx %>/JS/member/modify.js"></script>
 </body>
 </html>

@@ -3,6 +3,7 @@
 <%@ page import="java.time.LocalDate" %>
 <%@ page import="java.util.List" %>
 <%
+    String ctx = request.getContextPath();
     MemberDTO       member         = (MemberDTO)       request.getAttribute("member");
     List<MemberDTO> matchedMembers = (List<MemberDTO>) request.getAttribute("matchedMembers");
     String          step           = (String)          request.getAttribute("step");
@@ -17,7 +18,7 @@
 <html>
 <head>
     <title>회원 등록</title>
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/CSS/style.css">
+    <link rel="stylesheet" href="<%= ctx %>/CSS/style.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
 </head>
 <body>
@@ -39,7 +40,7 @@
                 차량번호 조회
             </div>
             <div class="card-body">
-                <form action="/member/member_add" method="get" onsubmit="return validateCarNum()">
+                <form action="<%= ctx %>/member/member_add" method="get" onsubmit="return validateCarNum()">
                     <div class="form-group">
                         <label>차량번호 <span class="text-danger">*</span></label>
                         <input type="text" class="form-control" name="carNum" id="carNum"
@@ -49,7 +50,7 @@
                     </div>
                     <div class="d-flex">
                         <button type="submit" class="btn btn-primary flex-fill mr-2">조회</button>
-                        <a href="/member/member_list" class="btn btn-secondary flex-fill">목록</a>
+                        <a href="<%= ctx %>/member/member_list" class="btn btn-secondary flex-fill">목록</a>
                     </div>
                 </form>
             </div>
@@ -66,7 +67,7 @@
 
         <div class="card">
             <div class="card-body">
-                <form action="/member/member_add" method="post" onsubmit="return validateRegister()">
+                <form action="<%= ctx %>/member/member_add" method="post" onsubmit="return validateRegister()">
                     <input type="hidden" name="action" value="register">
 
                     <div class="form-group">
@@ -121,7 +122,7 @@
 
                     <div class="d-flex">
                         <button type="submit" class="btn btn-primary flex-fill mr-2">등록</button>
-                        <a href="/member/member_add" class="btn btn-secondary flex-fill">다시 조회</a>
+                        <a href="<%= ctx %>/member/member_add" class="btn btn-secondary flex-fill">다시 조회</a>
                     </div>
                 </form>
             </div>
@@ -139,7 +140,7 @@
 
         <div class="list-group mb-3">
             <% for (MemberDTO m : matchedMembers) { %>
-            <a href="/member/member_add?step=renew&carNum=<%= m.getCarNum() %>"
+            <a href="<%= ctx %>/member/member_add?step=renew&carNum=<%= m.getCarNum() %>"
                class="list-group-item list-group-item-action">
                 <div class="d-flex justify-content-between align-items-center">
                     <div>
@@ -159,7 +160,7 @@
             <% } %>
         </div>
 
-        <a href="/member/member_add" class="btn btn-secondary btn-block">다시 조회</a>
+        <a href="<%= ctx %>/member/member_add" class="btn btn-secondary btn-block">다시 조회</a>
 
         <%-- STEP 4: 선택된 기존 회원 갱신 폼 --%>
         <% } else if ("renew".equals(step) && member != null) { %>
@@ -228,7 +229,7 @@
             </div>
         </div>
 
-        <form action="${pageContext.request.contextPath}/member/member_add" method="post">
+        <form action="<%= ctx %>/member/member_add" method="post">
             <input type="hidden" name="action" value="renew">
             <input type="hidden" name="carNum" value="<%= member.getCarNum() %>">
             <div class="d-flex">
@@ -236,7 +237,7 @@
                         onclick="return confirm('월정액 1개월을 갱신하시겠습니까?')">
                     갱신
                 </button>
-                <a href="${pageContext.request.contextPath}/member/member_add" class="btn btn-secondary flex-fill">다시 조회</a>
+                <a href="<%= ctx %>/member/member_add" class="btn btn-secondary flex-fill">다시 조회</a>
             </div>
         </form>
 
@@ -246,7 +247,7 @@
 
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-<script src="${pageContext.request.contextPath}/JS/menu.js"></script>
-<script src="${pageContext.request.contextPath}/JS/member/add.js"></script>
+<script src="<%= ctx %>/JS/menu.js"></script>
+<script src="<%= ctx %>/JS/member/add.js"></script>
 </body>
 </html>

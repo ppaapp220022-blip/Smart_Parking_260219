@@ -27,7 +27,7 @@ public class MemberDeleteController extends HttpServlet {
             // 파라미터 검증
             if (carNum == null || carNum.trim().isEmpty()) {
                 log.error("차량번호 파라미터 누락");
-                resp.sendRedirect("/member/member_list?error=missing");
+                resp.sendRedirect(req.getContextPath() + "/member/member_list?error=missing");
                 return;
             }
 
@@ -36,11 +36,11 @@ public class MemberDeleteController extends HttpServlet {
             log.info("회원 삭제 완료: {}", carNum);
 
             // 성공 시 목록으로 리다이렉트
-            resp.sendRedirect("/member/member_list?success=delete");
+            resp.sendRedirect(req.getContextPath() + "/member/member_list?success=delete");
 
         } catch (Exception e) {
             log.error("회원 삭제 중 오류 발생", e);
-            resp.sendRedirect("/member/member_list?error=deleteFail");
+            resp.sendRedirect(req.getContextPath() + "/member/member_list?error=deleteFail");
         }
     }
 }

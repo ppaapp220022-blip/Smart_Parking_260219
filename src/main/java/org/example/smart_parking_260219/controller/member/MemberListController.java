@@ -116,13 +116,13 @@ public class MemberListController extends HttpServlet {
             if ("renew".equals(action)) {
                 memberService.renewSubscription(carNum);
                 log.info("갱신 완료: {}", carNum);
-                resp.sendRedirect("/member/member_list?success=renew");
+                resp.sendRedirect(req.getContextPath() + "/member/member_list?success=renew");
             } else {
-                resp.sendRedirect("/member/member_list");
+                resp.sendRedirect(req.getContextPath() + "/member/member_list");
             }
         } catch (Exception e) {
             log.error("갱신 처리 오류", e);
-            resp.sendRedirect("/member/member_list?error=renewFail");
+            resp.sendRedirect(req.getContextPath() + "/member/member_list?error=renewFail");
         }
     }
 }

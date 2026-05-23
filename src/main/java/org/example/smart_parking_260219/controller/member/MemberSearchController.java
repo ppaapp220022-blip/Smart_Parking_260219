@@ -48,7 +48,7 @@ public class MemberSearchController extends HttpServlet {
             // 1건이면 바로 상세 페이지로
             if (matchedMembers.size() == 1) {
                 log.info("검색 결과 1건 - 상세 페이지로 이동");
-                resp.sendRedirect("/member/member_detail?carNum=" + matchedMembers.get(0).getCarNum());
+                resp.sendRedirect(req.getContextPath() + "/member/member_detail?carNum=" + matchedMembers.get(0).getCarNum());
                 return;
             }
 

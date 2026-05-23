@@ -35,6 +35,6 @@ public class FeePolicyApplyController extends HttpServlet {
         if (keyword == null) keyword = "";
 
         // 처리가 끝나면 다시 목록이나 해당 상세페이지로 이동
-        resp.sendRedirect("/view/policy/list?pageNum=" + pageNum + "&items=" + items + "&keyword=" + keyword);
+        resp.sendRedirect(req.getContextPath() + "/view/policy/list?pageNum=" + pageNum + "&items=" + items + "&keyword=" + keyword);
     }
 }
